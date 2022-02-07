@@ -2,10 +2,13 @@ import { createContext, useState } from "react";
 
 const FavoritesContext = createContext( {
     favorites: [],
-    totalFavorites: 0
+    totalFavorites: 0,
+    addFavorite: (favoriteMeetup) => {},
+    removeFavorite: (meetupId) => {},
+    itemIsFavorite: (meetupId) => {}
 });
 
-function FavoritesContextProvider(props) {
+export function FavoritesContextProvider(props) {
     const [userFavorites, setUserFavorites] = useState([]);
 
     function addFavoriteHandler(favoriteMeetup) {
@@ -27,9 +30,14 @@ function FavoritesContextProvider(props) {
     const context ={
         favorites: userFavorites,
         totalFavorites: userFavorites.length,
+        addFavorite: addFavoriteHandler,
+        removeFavorit: removeFavoriteHandler,
+        itemIsFavorite: itemIsFavoriteHandler
     };
 
     return <FavoritesContext.Provider value={context}>  
         {props.children}   //all the contents inside FavoritesContextProvider will be wrapped
     </FavoritesContext.Provider>
 }
+
+export default FavoritesContextProvider
