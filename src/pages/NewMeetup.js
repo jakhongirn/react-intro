@@ -1,6 +1,10 @@
+import { useNavigate } from 'react-router-dom';
+
 import NewMeetupForm from "../components/meetups/NewMeetupForm";
 
 function NewMeetupPage() {
+    const navigate = useNavigate();
+
   function AddMeetupHandler(meetupData) {
     fetch(
       "https://react-intro-c9930-default-rtdb.firebaseio.com/meetups.json",
@@ -11,7 +15,9 @@ function NewMeetupPage() {
           "Content-Type": "application/json",
         },
       } //It's api rules of Firebase
-    ); //Builtin vanilla Javascript function
+    ).then(() => {
+        navigate('/'); //when data submits the data it will redirect to the home path 
+    }); //Builtin vanilla Javascript function
   }
   
   return (
